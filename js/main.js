@@ -18,12 +18,13 @@ const TIME_LIMIT = 10
 let gameState = "loading"
 let isLookingBackward = true
 
-function createCube(size, positionX, rotY = 0, color = 0xfbc851){
+function createCube(size, positionX, positionY, rotX = 0, color = 0xfbc851){
     const geometry = new THREE.BoxGeometry(size.w, size.h, size.d);
     const material = new THREE.MeshBasicMaterial( { color: color } );
     const cube = new THREE.Mesh( geometry, material );
     cube.position.x = positionX;
-    cube.rotation.y = rotY;
+    cube.position.y = positionY;
+    cube.rotation.x = rotX;
     scene.add( cube );   
     return cube;
 }
@@ -36,9 +37,8 @@ function delay(ms){
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-
  function createTrack(){
-    createCube({w: start_position * 2 + .2, h: 1.5, d: 1}, 0, 0, 0xe5a716).position.z = -1;
+    createCube({w: start_position * 3 + .2, h: 2, d: 1}, 0, -1.08, 1.6, 0xe5a716).position.z = -1;
     // createCube({w: .2, h: 1.5, d: 1}, start_position, -.35);
     // createCube({w: .2, h: 1.5, d: 1}, end_position, .35);
  }
