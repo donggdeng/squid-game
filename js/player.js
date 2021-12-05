@@ -5,8 +5,7 @@ class Player{
            scene.add(gltf.scene);
            gltf.scene.scale.set(.015, .015, .015);
            gltf.scene.position.set(3, -.5, 0);
-           gltf.scene.rotation.y = -2;
-           console.log("gltf.scene", gltf.scene)
+           gltf.scene.rotation.y = -1.8;
            this.man = gltf.scene;
        })
        this.manInfo = {

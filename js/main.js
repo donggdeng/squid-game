@@ -29,6 +29,15 @@ function createCube(size, positionX, positionY, rotX = 0, color = 0xfbc851){
     return cube;
 }
 
+function createPlatform() {
+    const geometry = new THREE.CylinderGeometry( .6, .6, .4, 32 );
+    const material = new THREE.MeshBasicMaterial( {color: 0x78d46a} );
+    const cylinder = new THREE.Mesh( geometry, material );
+    cylinder.position.y = -.25;
+    cylinder.position.x = -3;
+    scene.add( cylinder );
+}
+
 camera.position.z = 5;
 
 const loader = new THREE.GLTFLoader();
@@ -38,14 +47,11 @@ function delay(ms){
 }
 
  function createTrack(){
-    createCube({w: start_position * 3 + .2, h: 2, d: 1}, 0, -1.08, 1.6, 0xe5a716).position.z = -1;
-    // createCube({w: .2, h: 1.5, d: 1}, start_position, -.35);
-    // createCube({w: .2, h: 1.5, d: 1}, end_position, .35);
+    createCube({w: start_position * 3 + .2, h: 3, d: .5}, 0, -0.78, 1.6, 0xe5a716).position.z = -1;
  }
 
- createTrack()
-
- 
+createTrack()
+createPlatform() 
 
 let player = new Player();
 let doll = new Doll();
