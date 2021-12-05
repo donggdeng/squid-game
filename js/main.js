@@ -38,22 +38,25 @@ function delay(ms){
 
 class Doll{
     constructor(){
-        loader.load("../models/scene.gltf", (gltf) => {
+        loader.load("../models/doll/scene.gltf", (gltf) => {
             scene.add(gltf.scene);
-            gltf.scene.scale.set(.4, .4, .4);
-            gltf.scene.position.set(0, -1, 0);
+            gltf.scene.scale.set(.1, .1, .1);
+            gltf.scene.position.set(-3, 0, 0);
+            gltf.scene.rotation.y = -1.2
+
             this.doll = gltf.scene;
         })
     }
 
     lookBackward(){
-        gsap.to(this.doll.rotation, {y: -3.15, duration: .45})
-        setTimeout(() => isLookingBackward = true, 150)
+        console.log("look doll", this.doll)
+        gsap.to(this.doll.rotation, {y: 1.95, duration: .45})
+        setTimeout(() => isLookingBackward = true, 450)
     }
 
     lookForward(){
-        gsap.to(this.doll.rotation, {y: 0, duration: .45})
-        setTimeout(() => isLookingBackward = false, 450)
+        gsap.to(this.doll.rotation, {y: -1.2, duration: .45})
+        setTimeout(() => isLookingBackward = false, 150)
     }
 
     async start(){
@@ -67,41 +70,43 @@ class Doll{
 
  function createTrack(){
     createCube({w: start_position * 2 + .2, h: 1.5, d: 1}, 0, 0, 0xe5a716).position.z = -1;
-    createCube({w: .2, h: 1.5, d: 1}, start_position, -.35);
-    createCube({w: .2, h: 1.5, d: 1}, end_position, .35);
+    // createCube({w: .2, h: 1.5, d: 1}, start_position, -.35);
+    // createCube({w: .2, h: 1.5, d: 1}, end_position, .35);
  }
 
  createTrack()
 
  class Player{
      constructor(){
-        const geometry = new THREE.SphereGeometry( .3, 32, 16 );
-        const material = new THREE.MeshBasicMaterial( { color: 0xffffff } );
-        const sphere = new THREE.Mesh( geometry, material );
-        sphere.position.z = 1;
-        sphere.position.x = start_position;
-        scene.add( sphere );
-        this.player = sphere;
-        this.playerInfo = {
+
+        loader.load("../models/blue_skin/scene.gltf", (gltf) => {
+            scene.add(gltf.scene);
+            gltf.scene.scale.set(.015, .015, .015);
+            gltf.scene.position.set(3, -.5, 0);
+            gltf.scene.rotation.y = -2;
+            console.log("gltf.scene", gltf.scene)
+            this.man = gltf.scene;
+        })
+        this.manInfo = {
             positionX: start_position,
             velocity: 0
         }
      }
 
      run(){
-        this.playerInfo.velocity = .03
+        this.manInfo.velocity = .03
      }
 
      stop(){
-         gsap.to(this.playerInfo, {velocity: 0, duration: 0.1})
+         gsap.to(this.manInfo, {velocity: 0, duration: 0.1})
      }
 
      check(){
-        if(this.playerInfo.velocity > 0 && !isLookingBackward) {
+        if(this.manInfo.velocity > 0 && isLookingBackward) {
             text.innerText = "You lose!"
             gameState = "over"
         }
-        if(this.playerInfo.positionX < end_position + .4) {
+        if(this.manInfo.positionX < end_position + .4) {
             text.innerText = "You win!"
             gameState = "over"
         }
@@ -109,12 +114,14 @@ class Doll{
 
      update(){
          this.check()
-         this.playerInfo.positionX -= this.playerInfo.velocity;
-         this.player.position.x = this.playerInfo.positionX;
+         if(gameState == "started"){
+              this.manInfo.positionX -= this.manInfo.velocity;
+              this.man.position.x = this.manInfo.positionX;
+         }
      }
  }
 
-const player = new Player();
+let player = new Player();
 let doll = new Doll();
 
 async function init(){
