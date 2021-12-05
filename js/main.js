@@ -28,11 +28,16 @@ function delay(ms){
 }
 
  function createTrack(){
-    createCube({w: start_position * 3 + .2, h: 3, d: .5}, 0, -0.78, 1.6, 0xe5a716).position.z = -1;
+    createCube({w: start_position * 3 + .2, h: 3, d: .2}, 0, -0.68, 1.6, 0xe5a716).position.z = -1;
+ }
+
+ function createEndLine(){
+    createCube({w: .1, h: 3, d: .2}, end_position, -0.68, 1.6, 0x000000).position.z = -1;
  }
 
 createTrack()
-createPlatform() 
+createPlatform()
+createEndLine()
 
 let player = new Player();
 let doll = new Doll();

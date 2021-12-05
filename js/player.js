@@ -4,7 +4,7 @@ class Player{
        loader.load("../models/blue_skin/scene.gltf", (gltf) => {
            scene.add(gltf.scene);
            gltf.scene.scale.set(.015, .015, .015);
-           gltf.scene.position.set(3, -.5, 0);
+           gltf.scene.position.set(start_position, -.5, 0);
            gltf.scene.rotation.y = -1.8;
            this.man = gltf.scene;
        })
@@ -27,7 +27,7 @@ class Player{
            text.innerText = "You lose!"
            gameState = "over"
        }
-       if(this.manInfo.positionX < end_position + .4) {
+       if(this.manInfo.positionX < end_position + .05) {
            text.innerText = "You win!"
            gameState = "over"
        }

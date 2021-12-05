@@ -4,7 +4,7 @@ class Doll{
         loader.load("../models/doll/scene.gltf", (gltf) => {
             scene.add(gltf.scene);
             gltf.scene.scale.set(scale, scale, scale);
-            gltf.scene.position.set(-3, 0.4, 0);
+            gltf.scene.position.set(doll_position, 0.4, 0);
             gltf.scene.rotation.y = -1.3
 
             this.doll = gltf.scene;
