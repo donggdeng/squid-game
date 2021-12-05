@@ -11,32 +11,13 @@ const light = new THREE.AmbientLight( 0xffffff );
 scene.add( light );
 
 // global variables
-const start_position = 3
-const end_position = -start_position
+const start_position = 4
+const end_position = -3
+const doll_position = -4
 const text = document.querySelector(".text")
-const TIME_LIMIT = 10
+const TIME_LIMIT = 13
 let gameState = "loading"
 let isLookingBackward = true
-
-function createCube(size, positionX, positionY, rotX = 0, color = 0xfbc851){
-    const geometry = new THREE.BoxGeometry(size.w, size.h, size.d);
-    const material = new THREE.MeshBasicMaterial( { color: color } );
-    const cube = new THREE.Mesh( geometry, material );
-    cube.position.x = positionX;
-    cube.position.y = positionY;
-    cube.rotation.x = rotX;
-    scene.add( cube );   
-    return cube;
-}
-
-function createPlatform() {
-    const geometry = new THREE.CylinderGeometry( .6, .6, .4, 32 );
-    const material = new THREE.MeshBasicMaterial( {color: 0x78d46a} );
-    const cylinder = new THREE.Mesh( geometry, material );
-    cylinder.position.y = -.25;
-    cylinder.position.x = -3;
-    scene.add( cylinder );
-}
 
 camera.position.z = 5;
 
